@@ -1,6 +1,13 @@
+pyfiglet
+colorama
 google-auth
 google-auth-oauthlib
 google-api-python-client
 requests
-pyfiglet
-colorama
+moviepy==1.0.3
+openai
+python-dotenv
+pygame
+pillow
+gTTS
+pydub

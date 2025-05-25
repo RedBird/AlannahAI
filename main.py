@@ -1,23 +1,48 @@
+#This page is for the CLI controller / entry point
+# main.py
+import sys
+sys.path.append("./moviepy")
+
+# Import display banner with ASCII art
 from ascii_art import show_banner
-from prompt_generator import auto_prompt
+
+# Import prompt logic (auto, manual, GPT)
+from prompt_generator import get_prompt
+
+# Import video generation logic (stub/API)
 from video_generator import generate_video
+
+# Import YouTube uploader
 from youtube_uploader import upload_to_youtube
 
-def menu():
-    print("\nChoose an option:")
-    print("1. Auto-generate prompt")
-    print("2. Enter prompt manually")
-    choice = input("Your choice (1 or 2): ")
-
-    if choice == "1":
-        prompt = auto_prompt()
-    else:
-        prompt = input("Enter your video prompt: ")
-
-    print(f"\nPrompt: {prompt}")
-    video_file = generate_video(prompt)
-    upload_to_youtube(video_file, prompt)
-
-if __name__ == "__main__":
+#__________________________________________
+# f(x): main
+# Purpose: Entry point for the AlannahAI app.
+# Displays banner, lets user choose a prompt mode,
+# generates video, and uploads to YouTube.
+#____________________________________________
+def main():
+    # This f(x) shows the ASCII art Sphixes + title banner
     show_banner()
-    menu()
+
+    # Display user menu
+    print("\nChoose an option:")
+    print("1. Auto-generate prompt (from list)")
+    print("2. Enter prompt manually")
+    print("3. Use GPT to generate idea")
+
+    # Get user choice
+    choice = input("Your choice (1, 2, or 3): ").strip()
+
+    # Get prompt based on selected mode
+    prompt = get_prompt(choice)
+
+    # Generate video from the prompt
+    video_path = generate_video(prompt)
+
+    # Upload video to YouTube
+    upload_to_youtube(video_path, prompt)
+
+# Entry point check
+if __name__ == "__main__":
+    main()
